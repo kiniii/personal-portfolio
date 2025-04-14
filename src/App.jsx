@@ -5,6 +5,7 @@ import Hero from "./components/Hero";
 import About from "./components/About";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
+import ProjectDetail from "./components/ProjectDetail";
 
 function App() {
   return (
@@ -15,13 +16,22 @@ function App() {
           path="/"
           element={
             <>
-              <Hero />
-              <About />
-              <Projects />
-              <Contact />
+              <section id="hero">
+                <Hero />
+              </section>
+              <section id="about">
+                <About />
+              </section>
+              <section id="projects">
+                <Projects />
+              </section>
+              <section id="contact">
+                <Contact />
+              </section>
             </>
           }
         />
+        <Route path="/project/:id" element={<ProjectDetail />} />
       </Routes>
     </>
   );
