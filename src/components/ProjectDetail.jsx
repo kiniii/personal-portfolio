@@ -4,7 +4,6 @@ import projectsData from '../data/projects';
 
 export default function ProjectDetail() {
   const { id } = useParams();
-  // Convert both to strings for comparison
   const project = projectsData.find(p => String(p.id) === String(id));
   
   if (!project) {
@@ -32,11 +31,12 @@ export default function ProjectDetail() {
         <h1 className="text-4xl font-bold mb-6">{project.title}</h1>
         
         <img 
-          src={project.image || 'https://via.placeholder.com/1200x600'} 
+          src={project.image || "https://via.placeholder.com/1200x600?text=Project+Image"} 
           alt={project.title} 
-          className="w-full h-96 object-cover rounded-lg shadow-lg mb-8"
+          className="w-full h-full object-cover rounded-lg shadow-lg mb-8"
           onError={(e) => {
-            e.target.src = 'https://via.placeholder.com/1200x600?text=Project+Image';
+            console.log("Image failed to load:", project.image);
+            e.target.src = "https://via.placeholder.com/1200x600?text=Project+Image";
           }}
         />
         
@@ -52,12 +52,10 @@ export default function ProjectDetail() {
         {/* Project Info */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div className="md:col-span-3">
-            <h2 className="text-2xl font-semibold mb-4">Overview</h2>
-            <p className="mb-6">{project.description}</p>
             
             {project.longDescription && (
               <div className="mb-6">
-                <h3 className="text-xl font-semibold mb-3">Project Details</h3>
+                <h2 className="text-xl font-semibold mb-3">Project Details</h2>
                 <p>{project.longDescription}</p>
               </div>
             )}
@@ -77,57 +75,6 @@ export default function ProjectDetail() {
             )}
           </div>
           
-          <div className="bg-gray-50 p-6 rounded-lg h-fit">
-            <h3 className="text-lg font-semibold mb-4">Project Info</h3>
-            
-            <div className="mb-3">
-              <h4 className="text-sm text-gray-500">Category</h4>
-              <p>{project.category || 'N/A'}</p>
-            </div>
-            
-            {project.client && (
-              <div className="mb-3">
-                <h4 className="text-sm text-gray-500">Client</h4>
-                <p>{project.client}</p>
-              </div>
-            )}
-            
-            {project.duration && (
-              <div className="mb-3">
-                <h4 className="text-sm text-gray-500">Duration</h4>
-                <p>{project.duration}</p>
-              </div>
-            )}
-            
-            {project.techs && (
-              <div className="mb-3">
-                <h4 className="text-sm text-gray-500">Technologies</h4>
-                <p>{project.techs.join(', ')}</p>
-              </div>
-            )}
-            
-            {project.liveUrl && (
-              <a 
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full bg-primary text-white text-center py-2 rounded mt-6 hover:bg-opacity-90"
-              >
-                View Live
-              </a>
-            )}
-            
-            {project.codeUrl && (
-              <a 
-                href={project.codeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full bg-white border border-primary text-primary text-center py-2 rounded mt-3 hover:bg-gray-50"
-              >
-                View Code
-              </a>
-            )}
-          </div>
         </div>
         
         {/* Project Images Gallery (if you have multiple images) */}
@@ -142,6 +89,7 @@ export default function ProjectDetail() {
                   alt={`${project.title} image ${index + 1}`}
                   className="w-full h-64 object-cover rounded shadow"
                   onError={(e) => {
+                    console.log("Gallery image failed to load:", img);
                     e.target.src = `https://via.placeholder.com/600x400?text=Gallery+Image+${index+1}`;
                   }}
                 />

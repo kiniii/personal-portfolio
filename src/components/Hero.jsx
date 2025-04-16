@@ -11,7 +11,7 @@ export default function Hero() {
       transition={{ duration: 1 }}
     >
       <div>
-        <h1 className="text-5xl font-bold mb-4">Hey, I'm Kinlok</h1>
+        <h1 className="text-5xl font-bold mb-4">Kinlok Lau</h1>
         <p className="text-2xl mb-8">UX Designer & Developer</p>
       </div>
     </motion.section>
